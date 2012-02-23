@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
 import bukutamu.model.Komentar;
@@ -115,6 +116,12 @@ public class KomentarController {
 
 		// 4. cleanup
 		response.getOutputStream().close();
+	}
+
+	@RequestMapping(value="/list/json",method=RequestMethod.GET)
+	@ResponseBody
+	public List<Komentar> tampilkanDaftarKomentarDalamJson(){
+		return daftarKomentar;
 	}
 
 }
