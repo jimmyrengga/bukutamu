@@ -20,10 +20,12 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 import bukutamu.model.Komentar;
@@ -60,6 +62,22 @@ public class KomentarController {
 	public ModelMap tampilkanForm(){
 		ModelMap mm = new ModelMap();
 		mm.addAttribute("daftarKomentar", daftarKomentar);
+		return mm;
+	}
+
+	@RequestMapping(value="/report",method=RequestMethod.GET)
+	public ModelMap reportKomentar(@RequestParam(required=false) String format){
+
+		ModelMap mm = new ModelMap();
+
+		if(StringUtils.hasText(format)){
+			mm.addAttribute("format", format);
+		} else {
+			mm.addAttribute("format", "pdf");
+		}
+
+		mm.addAttribute("daftarKomentar", daftarKomentar);
+		mm.addAttribute("judul", "Daftar Komentar");
 		return mm;
 	}
 
